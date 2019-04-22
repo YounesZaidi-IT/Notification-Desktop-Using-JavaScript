@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Test browser Notification</title>
+<meta name="author" content="Younes Zaidi">
+<meta name="description" content="Notification Browser Using JavaScript /">
+<meta name="keywords" content="HTML,CSS,XML,JavaScript,Notification">
+
+<script type="text/javascript">
+
+var articles = [
+["Test Notification",""],
+["Test Notification",""],
+["Test Notification",""],
+["Test Notification",""],
+
+];
+
+
+setInterval(function(){ 
+var x = Math.floor((Math.random() * 4) + 1);
+var title=articles[x][0];
+var desc='Great Working !!';
+var url=articles[x][1];
+notifyBrowser(title,desc,url);
+}, 20000);
+
+
+
+document.addEventListener('DOMContentLoaded', function () 
+{
+    
+if (Notification.permission !== "granted")
+{
+Notification.requestPermission();
+}
+
+document.querySelector("#notificationButton").addEventListener("click", function(e)
+{
+var x = Math.floor((Math.random() * 4) + 1);
+var title=articles[x][0];
+var desc='i can"t add here tag HTML like this <span></span> or <br> or colors';
+var url=articles[x][1];
+notifyBrowser(title,desc,url);
+e.preventDefault();
+});
+
+});
+
+function notifyBrowser(title,desc,url) 
+{
+if (!Notification) {
+console.log('Desktop notifications not available in your browser..'); 
+return;
+}
+if (Notification.permission !== "granted")
+{
+Notification.requestPermission();
+}
+else {
+var notification = new Notification(title, {
+icon:'http://www.tullyelite.com/images/images/TEST-logo-red.png',
+body: desc,
+});
+
+// Remove the notification from Notification Center when clicked.
+notification.onclick = function () {
+window.open(url);      
+};
+
+// Callback function when the notification is closed.
+notification.onclose = function () {
+console.log('Notification closed');
+};
+
+}
+}
+
+
+</script>
+
+
+
+<style type="text/css">
+.hover{background-color: #cc0000}
+ #container{ margin:0px auto; width: 800px} 
+.button {
+ font-weight: bold;
+    padding: 7px 9px;
+    background-color: #5fcf80;
+    color: #fff !important;
+    font-size: 12px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    text-shadow: 0 1px 0px rgba(0,0,0,0.15);
+    border-width: 1px 1px 3px !important;
+    border-style: solid;
+    border-color: #3ac162;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    border-radius: 3px;
+    box-sizing: border-box;
+    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+}
+.authorBlock{border-top:1px solid #cc0000;}
+</style>
+</head>
+<body>
+<div id="container">
+<h1>Test browser Notification</h1>  
+
+<h4>Click notification button</h4>
+<a href="#"  id="notificationButton" class="button">Notification</a>
+</div>
+
+
+</body>
+</html>
